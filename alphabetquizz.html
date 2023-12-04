@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="SignScript Scholars academy is an online E-Learning platform that serves as a center of excellence for anyone aspiring to learn the Kenyan Sign Language"
+    />
+    <meta name="keywords" content="" />
+    <meta name="author" content="Winnie Wanjiku" />
+    <title>SignScript Scholars Quiz</title>
+    <link
+      href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEQAAABEAAAEREAABERAAAREQAAEREAAAEQAAABEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAA//8AAP//AADDwwAAgYEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIGBAADDwwAA//8AAP//AAD//wAA"
+      rel="icon"
+    />
+    <link href="alphabetquiz.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="start-screen">
+      <button id="start-button">Start</button>
+    </div>
+    <div id="display-container">
+      <div class="header">
+        <div class="number-of-count">
+          <span class="number-of-question">1 of 10 questions</span>
+        </div>
+        <div class="timer-div">
+          <img
+            src="https://uxwing.com/wp-content/themes/uxwing/download/time-and-date/stopwatch-icon.png"
+            width="20px"
+          />
+          <span class="time-left">10s</span>
+        </div>
+      </div>
+      <div id="container">
+        <!-- questions and options will be displayed here -->
+      </div>
+      <button id="next-button">Next</button>
+    </div>
+    <div class="score-container hide">
+      <div id="user-score">Demo Score</div>
+      <button id="restart">Restart</button>
+      <button id="submit-results" onclick="submitResultsBtn()">
+        Submit Results
+      </button>
+    </div>
+    <script src="alphabetquiz.js"></script>
+    <script>
+      <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+    <script>
+      const firebaseApp = firebase.initializeApp({
+        apiKey: 'AIzaSyCp1PABj_S7yAK41Tc2l_VONsWp78LXUrw',
+        authDomain: 'signscript-scholars.firebaseapp.com',
+        databaseURL: 'https://signscript-scholars-default-rtdb.firebaseio.com',
+        projectId: 'signscript-scholars',
+        storageBucket: 'signscript-scholars.appspot.com',
+        messagingSenderId: '191214077755',
+        appId: '1:191214077755:web:2463e0748f930c07fb591e',
+        measurementId: 'G-CXZL71DL0C',
+      });
+      const db = firebaseApp.firestore();
+      const auth = firebaseApp.auth();
+
+      import { getDatabase, set, get, update, remove, ref, child, } 
+      from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app-database.js";
+
+      const db = firebaseApp.firestore();
+      const auth = firebaseApp.auth();
+      var userName = document.querySelector()
+    </script>
+
+  </body>
+</html>

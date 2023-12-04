@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tutor Sign Up</title>
+    <link rel="stylesheet" href="tutorslandingpage.css" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEQAAABEAAAEREAABERAAAREQAAEREAAAEQAAABEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAA//8AAP//AADDwwAAgYEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIGBAADDwwAA//8AAP//AAD//wAA"
+    />
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header>
+      <div class="header-container">
+        <h1>SignScript Scholars</h1>
+        <div class="logout-container">
+          <!-- Add your logout link or button here -->
+          <a href="#" id="logout">Logout</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <main>
+      <h2>Welcome, Tutor!</h2>
+      <div class="tutor-actions">
+        <button onclick="uploadCourseMaterial()">Upload Course Material</button>
+        <button onclick="setQuizzes()">Set Quizzes</button>
+        <button onclick="viewStudentProgress()">View Student Progress</button>
+      </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+      <div class="footer-container">
+        <p>&copy; 2023 SignScript Scholars. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <button
+      onclick="document.location= 'landingpage.html'"
+      title="Lets go to SignScript page!"
+    >
+      Click here to proceed to the website
+    </button>
+    <script>
+      function uploadFile(file) {
+        // Create a storage reference
+        var storageRef = firebase.storage().ref('path/to/upload');
+
+        // Create an upload task
+        var uploadTask = storageRef.put(file);
+
+        // Monitor the upload task
+        uploadTask.on(
+          'state_changed',
+          function (snapshot) {
+            // Calculate the upload progress
+            var progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+          },
+          function (error) {
+            // Handle any errors that occur during the upload
+            console.log('Upload error:', error);
+          },
+          function () {
+            // The upload completed successfully
+            console.log('Upload completed successfully');
+          }
+        );
+      }
+      function viewStudentProgress(studentId) {
+        // Create a reference to the student's document
+        var studentRef = firebase.firestore().doc('students/' + studentId);
+
+        // Get the student's document
+        studentRef
+          .get()
+          .then(function (doc) {
+            if (doc.exists) {
+              // The student's document was found
+              var studentData = doc.data();
+              console.log('Student name:', studentData.name);
+              console.log('Quiz score:', studentData.score);
+              console.log('Quiz total marks:', studentData.totalMarks);
+            } else {
+              // The student's document was not found
+              console.log('No such student!');
+            }
+          })
+          .catch(function (error) {
+            // Handle any errors that occur during the retrieval
+            console.log('Error getting student data:', error);
+          });
+      }
+    </script>
+  </body>
+</html>

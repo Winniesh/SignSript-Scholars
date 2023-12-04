@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Students Sign Up</title>
+    <link
+      href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEQAAABEAAAEREAABERAAAREQAAEREAAAEQAAABEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAA//8AAP//AADDwwAAgYEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIGBAADDwwAA//8AAP//AAD//wAA"
+      rel="icon"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="studentsignup.css" />
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+
+    <script>
+      const firebaseApp = firebase.initializeApp({
+        apiKey: 'AIzaSyCp1PABj_S7yAK41Tc2l_VONsWp78LXUrw',
+        authDomain: 'signscript-scholars.firebaseapp.com',
+        databaseURL: 'https://signscript-scholars-default-rtdb.firebaseio.com',
+        projectId: 'signscript-scholars',
+        storageBucket: 'signscript-scholars.appspot.com',
+        messagingSenderId: '191214077755',
+        appId: '1:191214077755:web:2463e0748f930c07fb591e',
+        measurementId: 'G-CXZL71DL0C',
+      });
+      const db = firebaseApp.firestore();
+      const auth = firebaseApp.auth();
+    </script>
+  </head>
+  <body>
+    <h2>Student Login Form</h2>
+      <div class="container">
+        <form>
+        <label for="inputUserName"><b>User name</b></label>
+        <input
+          type="text"
+          id="inputUserName"
+          placeholder="Enter your student's name"
+          required
+        />
+        <br>
+        <label for="inputEmail"><b>Email Address</b></label>
+        <input
+          type="text"
+          id="inputEmail"
+          placeholder="Enter your Email Address"
+          required
+        />
+        <br>
+        <label for="inputPassword"><b>Password</b></label>
+        <input
+          type="password"
+          id="inputPassword"
+          placeholder="Enter your Password"
+          required
+        />
+        </form>
+        <br>
+        <button
+          type="submit"
+          id="signin"
+          class="btn btn-primary btn-block mb-4"
+          onclick="Signin()"
+        >
+          Sign In
+        </button>
+        <button
+          type="button"
+          id="signup"
+          class="btn btn-primary btn-block mb-4"
+          onclick="Signup()"
+        >
+          Sign Up
+        </button>
+
+        <label>
+          <input type="checkbox" checked="checked" name="remember" /> Remember
+          me
+        </label>
+      </div>
+      <div class="container">
+        <button type="button" class="cancelbtn">Cancel</button>
+        <br>
+        <button type="button" onclick="forgotPassword()">Forgot Password</button>
+      </div>
+    </form>
+
+    <script>
+      // Sign Up Function
+      function Signup() {
+        const username = document.getElementById('inputUserName').value;
+        const email = document.getElementById('inputEmail').value;
+        const password = document.getElementById('inputPassword').value;
+        
+        debugger;
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(email, password)
+          .then(function (userCredential) {
+            // Signed in
+            const user = userCredential.user;
+            firebase.firestore().collection('users').doc(user.uid).set({
+            username: username,
+            email: email,
+            });
+            console.log('User signed up:', user);
+            // You can redirect or perform additional actions here
+          })
+          .catch(function (error) {
+            // Handle errors
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error('Signup error:', errorMessage);
+          });
+      }
+      // Sign In Function
+      function Signin() {
+        event.preventDefault();
+      const username = document.getElementById('signInUsername').value;
+      const email = document.getElementById('signInEmail').value;
+      const password = document.getElementById('signInPassword').value;
+      
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log('User signed in:', user);
+          // Redirect or perform additional actions for signed-in users
+        })
+        .catch((error) => {
+          // Handle errors
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error('Signin error:', errorMessage);
+
+          // If the user doesn't exist, prompt them to sign up
+          if (errorCode === 'auth/user-not-found') {
+            alert('User not found. Please sign up.');
+          }
+        });
+      }
+      // Forgot Password Function
+      function forgotPassword() {
+        const email = document.getElementById('forgotPasswordEmail').value;
+
+        firebase.auth().sendPasswordResetEmail(email)
+          .then(() => {
+            // Password reset email sent
+            console.log('Password reset email sent.');
+            alert('Password reset email sent. Check your inbox.');
+          })
+          .catch((error) => {
+            // Handle errors
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error('Forgot password error:', errorMessage);
+
+            // Check if the user is not found
+            if (errorCode === 'auth/user-not-found') {
+              alert('User not found. Please sign up.');
+            }
+          });
+      }
+    </script>
+  </body>
+</html>
