@@ -43,6 +43,14 @@ button {
 #submit-results {
   margin-top: 0.9em;
 }
+#return-to-course {
+  font-size: 1.3em;
+  padding: 0.5em 1.8em;
+  border-radius: 0.2em;
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4);
+  margin-top: 0.9cm;
+  background-color: #689f38;
+}
 #display-container {
   background-color: #ffffff;
   padding: 3.1em 1.8em;
